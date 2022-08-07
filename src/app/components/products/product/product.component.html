@@ -1,0 +1,31 @@
+<mat-card class="w-60">
+  <mat-card-header>
+    <mat-card-title> {{ product.title }} </mat-card-title>
+  </mat-card-header>
+  <img
+    mat-card-image
+    class="!m-0 cursor-pointer"
+    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+    (click)="showImage()"
+  />
+  <mat-card-content class="pt-2">
+    <div>Beginning price: {{ product.beginningPrice | currency }}</div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="flex px-2">
+      <button mat-raised-button color="primary" (click)="showBidDialog()">
+        Add Bid
+      </button>
+      <div class="flex flex-1 justify-end items-center"></div>
+    </div>
+  </mat-card-actions>
+</mat-card>
+
+<ng-template #imageFull>
+  <div mat-dialog-content>
+    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" />
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Close</button>
+  </div>
+</ng-template>
