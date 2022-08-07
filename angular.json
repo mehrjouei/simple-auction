@@ -103,9 +103,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "simple-auction"
+  "cli": {
+    "analytics": "e2be9b3f-6428-4750-ab5f-4acad301a589",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
+  }
 }
