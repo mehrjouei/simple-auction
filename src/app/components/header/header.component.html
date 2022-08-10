@@ -1,2 +1,25 @@
-<button (click)="loginWithGoogle()">Log in with Google</button>
-<button (click)="logout()">Log out</button>
+<mat-toolbar class="flex justify-between">
+  <button mat-icon-button aria-label="menu button">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My Auction App</span>
+
+  <button
+    *ngIf="!user"
+    class="justify-self-end"
+    (click)="loginWithGoogle()"
+    mat-icon-button
+    aria-label="login button"
+  >
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <button
+    *ngIf="user"
+    class="justify-self-end"
+    (click)="logout()"
+    mat-icon-button
+    aria-label="login button"
+  >
+    <mat-icon>power_settings_new</mat-icon>
+  </button>
+</mat-toolbar>

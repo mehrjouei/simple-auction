@@ -1,8 +1,40 @@
 <div mat-dialog-content>
-  <div class="flex w-96">
-    <div class="flex-1">Bids:</div>
+  <div class="flex flex-col md:flex-row md:w-96">
+    <div class="flex-1 pr-4">
+      <div class="pb-3 font-bold">Bids:</div>
+      <div *ngIf="!product.bids || product.bids.length === 0">
+        No bid has submitted yet
+      </div>
+      <div
+        class="flex mb-2 items-center justify-between"
+        *ngFor="
+          let bid of product.bids | sort: 'asc':'amount';
+          let index = index
+        "
+      >
+        <div class="flex items-center">
+          <span>{{ index }}.</span>
+          <span
+            ><img
+              [matTooltip]="bid.user.displayName"
+              [src]="
+                bid.user.photoURL
+                  ? bid.user.photoURL
+                  : '/assets/images/no-profile.jpg'
+              "
+              class="ml-2 border w-7 h-7 border-gray-100 rounded-full"
+              [alt]="bid.user.displayName"
+          /></span>
+        </div>
+        <span>{{ bid.amount | currency }}</span>
+      </div>
+    </div>
     <div class="flex-1">
-      <form [formGroup]="form">
+      <form id="bidForm" [formGroup]="form" (ngSubmit)="addBid()">
+        <div class="flex justify-between pb-4">
+          <span class="font-bold"> beginning amount:</span>
+          <span>{{ product.beginningPrice | currency }}</span>
+        </div>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Bid Amount</mat-label>
           <input
@@ -18,7 +50,17 @@
 </div>
 <div mat-dialog-actions class="justify-end">
   <button mat-raised-button (click)="closeDialog()">Cancel</button>
-  <button mat-raised-button color="primary" [disabled]="form.invalid">
+  <button
+    mat-raised-button
+    form="bidForm"
+    type="submit"
+    color="primary"
+    *ngIf="user"
+    [disabled]="form.invalid"
+  >
     Add
+  </button>
+  <button mat-raised-button *ngIf="!user" (click)="login()" color="primary">
+    Login
   </button>
 </div>

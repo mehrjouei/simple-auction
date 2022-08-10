@@ -29,6 +29,8 @@ export class ProductComponent {
   }
 
   showBidDialog() {
-    this.dialogRef = this.dialog.open(BidDialogComponent);
+    this.dialogRef = this.dialog.open(BidDialogComponent, {
+      data: { ...this.product },
+    });
   }
 }

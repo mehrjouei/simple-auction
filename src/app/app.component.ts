@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Product } from './models/product.model';
 import { ProductsService } from './services/products.service';
 
@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
-    this.products$ = this.productsService.getProducts();
+    this.products$ = this.productsService
+      .getProducts()
   }
 }

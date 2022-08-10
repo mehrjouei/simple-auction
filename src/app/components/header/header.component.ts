@@ -1,4 +1,6 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -6,17 +8,17 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit, OnDestroy {
+  user!: User;
+  subscriptions: Subscription = new Subscription();
   constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
-    this.getUser();  
+    this.getUser();
   }
 
   loginWithGoogle() {
-    this.authService.GoogleAuth().subscribe((res) => {
-      console.log(res);
-    });
+    this.authService.GoogleAuth();
   }
 
   logout() {
@@ -24,8 +26,13 @@ export class HeaderComponent implements OnInit{
   }
 
   getUser() {
-    this.authService.currentUser().subscribe((user) => {
-      console.log('user=>>>', user);
-    });
+    this.subscriptions.add(
+      this.authService.user.subscribe((_user) => {
+        this.user = _user as User;
+      })
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

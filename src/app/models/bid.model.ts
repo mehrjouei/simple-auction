@@ -1,5 +1,9 @@
+import { User } from './user.model';
+
 export interface Bid {
   amount: number;
-  userId: string;
+  user?: User;
+  userId?: string;
   date: Date;
 }
+
