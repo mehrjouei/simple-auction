@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import { SortPipe } from './shared/pipes/sort.pipe';
+import { BidConfirmComponent } from './components/products/product/bid-dialog/bid-confirm/bid-confirm.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SortPipe } from './shared/pipes/sort.pipe';
     ProductsComponent,
     ProductComponent,
     BidDialogComponent,
+    BidConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,7 @@ import { SortPipe } from './shared/pipes/sort.pipe';
     MatToolbarModule,
     MatIconModule,
     SortPipe,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   providers: [{ provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' }],
   bootstrap: [AppComponent],

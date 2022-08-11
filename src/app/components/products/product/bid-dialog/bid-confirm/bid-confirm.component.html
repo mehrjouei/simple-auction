@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <div class="font-semibold">Are you sure?</div>
+  <div>Your Bid amount is: {{ bidAmount | currency }}</div>
+  <div>After submitting your Bid, you cannot decrease or remove it.</div>
+</div>
+<div mat-dialog-actions class="justify-end">
+  <button mat-raised-button (click)="closeDialog(false)">Cancel</button>
+  <button mat-raised-button color="primary" (click)="closeDialog(true)">
+    Apply
+  </button>
+</div>

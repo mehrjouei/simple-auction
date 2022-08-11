@@ -1,32 +1,36 @@
 <div mat-dialog-content>
-  <div class="flex flex-col md:flex-row md:w-96">
-    <div class="flex-1 pr-4">
+  <div class="flex flex-col md:flex-row">
+    <div class="flex-1 md:pr-5">
       <div class="pb-3 font-bold">Bids:</div>
       <div *ngIf="!product.bids || product.bids.length === 0">
         No bid has submitted yet
       </div>
-      <div
-        class="flex mb-2 items-center justify-between"
-        *ngFor="
-          let bid of product.bids | sort: 'asc':'amount';
-          let index = index
-        "
-      >
-        <div class="flex items-center">
-          <span>{{ index }}.</span>
-          <span
-            ><img
+      <div class="overflow-y-auto pr-1 max-h-72">
+        <div
+          class="flex p-1 items-center justify-between"
+          *ngFor="
+            let bid of product.bids | sort: 'desc':'amount';
+            let index = index
+          "
+          [ngClass]="{ 'bg-green-100 rounded-md': index === 0 }"
+        >
+          <div class="flex items-center">
+            <img
               [matTooltip]="bid.user.displayName"
               [src]="
                 bid.user.photoURL
                   ? bid.user.photoURL
                   : '/assets/images/no-profile.jpg'
               "
-              class="ml-2 border w-7 h-7 border-gray-100 rounded-full"
+              class="ml-2 border w-7 h-7 border-gray-100 rounded-full inline-block"
               [alt]="bid.user.displayName"
-          /></span>
+            />
+            <span class="whitespace-nowrap mx-2">{{
+              bid.user.displayName
+            }}</span>
+          </div>
+          <span class="font-semibold ml-2">{{ bid.amount | currency }}</span>
         </div>
-        <span>{{ bid.amount | currency }}</span>
       </div>
     </div>
     <div class="flex-1">
@@ -34,6 +38,10 @@
         <div class="flex justify-between pb-4">
           <span class="font-bold"> beginning amount:</span>
           <span>{{ product.beginningPrice | currency }}</span>
+        </div>
+        <div class="flex justify-between pb-4">
+          <span class="font-bold">Min Bid Increase:</span>
+          <span>{{ product.minBidIncrease | currency }}</span>
         </div>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Bid Amount</mat-label>
