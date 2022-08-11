@@ -1,22 +1,46 @@
-<mat-card class="w-60">
+<mat-card class="w-60 h-96 !flex flex-col justify-between">
   <mat-card-header>
-    <mat-card-title> {{ product.title }} </mat-card-title>
+    <mat-card-title class="h-14"> {{ product.title }} </mat-card-title>
   </mat-card-header>
   <img
     mat-card-image
-    class="!m-0 cursor-pointer"
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+    class="!m-0 cursor-pointer max-h-48"
+    [src]="product.image"
     (click)="showImage()"
   />
   <mat-card-content class="pt-2">
-    <div>Beginning price: {{ product.beginningPrice | currency }}</div>
+    <div>
+      Beginning price:
+      <span class="font-semibold">{{ product.beginningPrice | currency }}</span>
+    </div>
   </mat-card-content>
   <mat-card-actions>
-    <div class="flex px-2">
-      <button mat-raised-button color="primary" (click)="showBidDialog()">
-        Add Bid
-      </button>
-      <div class="flex flex-1 justify-end items-center"></div>
+    <div class="flex">
+      <div class="flex px-1 pb-1 justify-end">
+        <div
+          class="flex flex-1 justify-start items-center"
+          *ngIf="highestBid && highestBid.user"
+        >
+          <img
+            [matTooltip]="highestBid.user.displayName"
+            [src]="
+              highestBid.user.photoURL
+                ? highestBid.user.photoURL
+                : '/assets/images/no-profile.jpg'
+            "
+            class="ml-2 border w-7 h-7 border-gray-100 rounded-full inline-block"
+            [alt]="highestBid.user.displayName"
+          />
+          <span class="font-semibold ml-2">{{
+            highestBid.amount | currency
+          }}</span>
+        </div>
+      </div>
+      <div class="flex justify-end flex-1">
+        <button mat-raised-button color="primary" (click)="showBidDialog()">
+          Add Bid
+        </button>
+      </div>
     </div>
   </mat-card-actions>
 </mat-card>

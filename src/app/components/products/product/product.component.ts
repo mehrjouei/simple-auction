@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Bid } from 'src/app/models/bid.model';
 import { Product } from 'src/app/models/product.model';
 import { BidDialogComponent } from './bid-dialog/bid-dialog.component';
 
@@ -20,6 +21,16 @@ export class ProductComponent {
   dialogRef!: MatDialogRef<any>;
   constructor(public dialog: MatDialog) {}
 
+  public get highestBid(): Bid | null {
+    const sortedBids = [...this.product.bids].sort(
+      (a, b) => b.amount - a.amount
+    );
+    if (sortedBids.length > 0) {
+      return sortedBids[0];
+    }
+    return null;
+  }
+
   showImage() {
     this.dialogRef = this.dialog.open(this.imageFull);
   }
@@ -33,4 +44,5 @@ export class ProductComponent {
       data: { ...this.product },
     });
   }
+
 }
