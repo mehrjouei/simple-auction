@@ -88,7 +88,7 @@ export class BidDialogComponent implements OnInit, OnDestroy {
   }
 
   applyBid() {
-    const bidAmount = parseInt(this.form.get('amount')?.value);
+    const bidAmount = parseFloat(this.form.get('amount')?.value);
     this.productService.addBid(this.product, {
       amount: bidAmount,
       userId: this.user.uid,
