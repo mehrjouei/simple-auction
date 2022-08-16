@@ -7,4 +7,5 @@ export interface Product {
   minBidIncrease: number;
   bids: Bid[];
   image: string;
+  sold: boolean;
 }

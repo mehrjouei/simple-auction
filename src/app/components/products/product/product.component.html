@@ -1,4 +1,10 @@
-<mat-card class="w-60 h-96 !flex flex-col justify-between">
+<mat-card class="w-60 h-96 !flex flex-col justify-between relative">
+  <div
+    class="absolute flex items-center justify-center bg-gray-400 bg-opacity-50 top-0 left-0 w-full h-full"
+    *ngIf="product.sold"
+  >
+    <span class="text-3xl text-red-500 font-bold"> Sold </span>
+  </div>
   <mat-card-header>
     <mat-card-title class="h-14"> {{ product.title }} </mat-card-title>
   </mat-card-header>
